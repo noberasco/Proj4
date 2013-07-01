@@ -98,7 +98,7 @@ geod_for(void) {
 			else
 				de -= c1 * ((1. - c2) * ds -
 					c2 * sinds * cos(ss));
-        }
+    }
 	}
 	lam2 = adjlon( lam1 + de );
 }

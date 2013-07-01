@@ -1,4 +1,4 @@
-# $Id: makefile.vc 1543 2009-03-10 00:19:59Z mloskot $
+# $Id: makefile.vc 2182 2012-03-04 00:15:57Z warmerdam $
 #
 # makefile.vc - builds PROJ.4 library with Visual C++
 #
@@ -18,25 +18,27 @@ cylinder = \
 	PJ_cass.obj PJ_cc.obj PJ_cea.obj PJ_eqc.obj \
 	PJ_gall.obj PJ_labrd.obj PJ_lsat.obj PJ_merc.obj \
 	PJ_mill.obj PJ_ocea.obj PJ_omerc.obj PJ_somerc.obj \
-	PJ_tcc.obj PJ_tcea.obj PJ_tmerc.obj PJ_geos.obj PJ_gstmerc.obj
+	PJ_tcc.obj PJ_tcea.obj PJ_tmerc.obj PJ_geos.obj \
+	PJ_gstmerc.obj proj_etmerc.obj 
 
 misc = \
 	PJ_airy.obj PJ_aitoff.obj PJ_august.obj PJ_bacon.obj \
 	PJ_chamb.obj PJ_hammer.obj PJ_lagrng.obj PJ_larr.obj \
 	PJ_lask.obj PJ_nocol.obj PJ_ob_tran.obj PJ_oea.obj \
 	PJ_tpeqd.obj PJ_vandg.obj PJ_vandg2.obj PJ_vandg4.obj \
-	PJ_wag7.obj pj_latlong.obj PJ_krovak.obj pj_geocent.obj
+	PJ_wag7.obj pj_latlong.obj PJ_krovak.obj pj_geocent.obj \
+	PJ_healpix.obj PJ_natearth.obj
 
 pseudo = \
 	PJ_boggs.obj PJ_collg.obj PJ_crast.obj PJ_denoy.obj \
 	PJ_eck1.obj PJ_eck2.obj PJ_eck3.obj PJ_eck4.obj \
 	PJ_eck5.obj PJ_fahey.obj PJ_fouc_s.obj PJ_gins8.obj \
-	PJ_gn_sinu.obj PJ_goode.obj PJ_hatano.obj PJ_loxim.obj \
+	PJ_gn_sinu.obj PJ_goode.obj PJ_igh.obj PJ_hatano.obj PJ_loxim.obj \
 	PJ_mbt_fps.obj PJ_mbtfpp.obj PJ_mbtfpq.obj PJ_moll.obj \
 	PJ_nell.obj PJ_nell_h.obj PJ_putp2.obj PJ_putp3.obj \
 	PJ_putp4p.obj PJ_putp5.obj PJ_putp6.obj PJ_robin.obj \
 	PJ_sts.obj PJ_urm5.obj PJ_urmfps.obj PJ_wag2.obj \
-	PJ_wag3.obj PJ_wink1.obj PJ_wink2.obj
+	PJ_wag3.obj PJ_wink1.obj PJ_wink2.obj PJ_isea.obj 
 
 support = \
 	aasincos.obj adjlon.obj bch2bps.obj bchgen.obj pj_gauss.obj \
@@ -50,7 +52,8 @@ support = \
 	geocent.obj pj_transform.obj pj_datum_set.obj pj_datums.obj \
 	pj_apply_gridshift.obj nad_cvt.obj nad_init.obj \
 	nad_intr.obj pj_utils.obj pj_gridlist.obj pj_gridinfo.obj \
-	proj_mdist.obj pj_mutex.obj pj_initcache.obj
+	proj_mdist.obj pj_mutex.obj pj_initcache.obj \
+	pj_ctx.obj pj_log.obj pj_apply_vgridshift.obj
 
 LIBOBJ	=	$(support) $(pseudo) $(azimuthal) $(conic) $(cylinder) $(misc)
 PROJEXE_OBJ	= proj.obj gen_cheb.obj p_series.obj emess.obj
@@ -60,7 +63,6 @@ PROJ_DLL 	= proj$(VERSION).dll
 PROJ_EXE    = proj.exe
 CS2CS_EXE   = cs2cs.exe
 GEOD_EXE    = geod.exe
-NAD2NAD_EXE = nad2nad.exe
 NAD2BIN_EXE = nad2bin.exe
 
 CFLAGS	=	/nologo -I. -DPROJ_LIB=\"$(PROJ_LIB_DIR)\" \
@@ -69,8 +71,6 @@ CFLAGS	=	/nologo -I. -DPROJ_LIB=\"$(PROJ_LIB_DIR)\" \
 default:	all
 
 all: proj.lib $(PROJ_EXE) $(CS2CS_EXE) $(GEOD_EXE) $(NAD2BIN_EXE)
-
-# Disabled: $(NAD2NAD_EXE)
 
 proj.lib:	$(LIBOBJ)
 	if exist proj.lib del proj.lib
@@ -94,9 +94,6 @@ $(CS2CS_EXE):	$(CS2CSEXE_OBJ) $(EXE_PROJ)
 $(GEOD_EXE):	$(GEODEXE_OBJ) $(EXE_PROJ)
 	cl $(GEODEXE_OBJ) $(EXE_PROJ)
 	if exist $(GEOD_EXE).manifest mt -manifest $(GEOD_EXE).manifest -outputresource:$(GEOD_EXE);1
-
-$(NAD2NAD_EXE):	nad2nad.obj emess.obj $(EXE_PROJ)
-	cl nad2nad.obj emess.obj $(EXE_PROJ)
 
 $(NAD2BIN_EXE):	nad2bin.obj emess.obj $(EXE_PROJ)
 	cl nad2bin.obj emess.obj $(EXE_PROJ)
