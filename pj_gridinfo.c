@@ -507,7 +507,7 @@ static int pj_gridinfo_init_ntv2( projCtx ctx, FILE *fid, PJ_GRIDINFO *gilist )
 
         gi->ct = ct;
         gi->format = "ntv2";
-        gi->grid_offset = ftell( fid );
+        gi->grid_offset = (int)ftell( fid );
 
 /* -------------------------------------------------------------------- */
 /*      Attach to the correct list or sublist.                          */
@@ -643,7 +643,7 @@ static int pj_gridinfo_init_ntv1( projCtx ctx, FILE * fid, PJ_GRIDINFO *gi )
     ct->cvs = NULL;
 
     gi->ct = ct;
-    gi->grid_offset = ftell( fid );
+    gi->grid_offset = (int)ftell( fid );
     gi->format = "ntv1";
 
     return 1;

@@ -24,9 +24,9 @@ gen_cheb(int inverse, projUV (*proj)(projUV), char *s, PJ *P, int iargc, char **
 	if (*s == ',') upp.v = input(s+1, &s); else ++errin;
 	if (errin)
 		emess(16,"null or absent -T parameters");
-	if (*s == ',') if (*++s != ',') res = strtol(s, &s, 10);
-	if (*s == ',') if (*++s != ',') NU = strtol(s, &s, 10);
-	if (*s == ',') if (*++s != ',') NV = strtol(s, &s, 10);
+	if (*s == ',') if (*++s != ',') res = (int)strtol(s, &s, 10);
+	if (*s == ',') if (*++s != ',') NU = (int)strtol(s, &s, 10);
+	if (*s == ',') if (*++s != ',') NV = (int)strtol(s, &s, 10);
 	pwr = s && *s && !strcmp(s, ",P");
 	(void)printf("#proj_%s\n#    run-line:\n",
 		pwr ? "Power" : "Chebyshev");

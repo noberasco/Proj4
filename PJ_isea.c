@@ -885,13 +885,13 @@ int isea_disn(struct isea_dgg *g, int quad, struct isea_pt *di) {
 
 	if (quad == 0) {
 		g->serial = 1;
-		return g->serial;
+		return (int)g->serial;
 	}
 	/* hexes in a quad */
 	hexes = (int) (pow(g->aperture, g->resolution) + 0.5);
 	if (quad == 11) {
 		g->serial = 1 + 10 * hexes + 1;
-		return g->serial;
+		return (int)g->serial;
 	}
 	if (g->aperture == 3 && g->resolution % 2 == 1) {
 		height = (int) (pow(g->aperture, (g->resolution - 1) / 2.0));

@@ -46,7 +46,7 @@ get_opt(projCtx ctx, paralist **start, FILE *fid, char *name, paralist *next) {
     char sword[302], *word = sword+1;
     int first = 1, len, c;
 
-    len = strlen(name);
+    len = (int)strlen(name);
     *sword = 't';
     while (fscanf(fid, "%300s", word) == 1) {
         if (*word == '#') /* skip comments */

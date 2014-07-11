@@ -136,7 +136,7 @@ struct CTABLE *nad_ctable_init( projCtx ctx, FILE * fid )
     }
     
     /* trim white space and newlines off id */
-    for( id_end = strlen(ct->id)-1; id_end > 0; id_end-- )
+    for( id_end = (int)strlen(ct->id)-1; id_end > 0; id_end-- )
     {
         if( ct->id[id_end] == '\n' || ct->id[id_end] == ' ' )
             ct->id[id_end] = '\0';
@@ -245,7 +245,7 @@ struct CTABLE *nad_ctable2_init( projCtx ctx, FILE * fid )
     }
     
     /* trim white space and newlines off id */
-    for( id_end = strlen(ct->id)-1; id_end > 0; id_end-- )
+    for( id_end = (int)strlen(ct->id)-1; id_end > 0; id_end-- )
     {
         if( ct->id[id_end] == '\n' || ct->id[id_end] == ' ' )
             ct->id[id_end] = '\0';

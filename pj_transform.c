@@ -634,7 +634,7 @@ int pj_datum_transform( PJ *srcdefn, PJ *dstdefn,
 /* -------------------------------------------------------------------- */
     if( z == NULL )
     {
-        int	bytes = sizeof(double) * point_count * point_offset;
+        int	bytes = (int)(sizeof(double) * point_count * point_offset);
         z = (double *) pj_malloc(bytes);
         memset( z, 0, bytes );
         z_is_temp = TRUE;
